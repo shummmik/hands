@@ -9,7 +9,7 @@ source "$HOME/.sdkman/bin/sdkman-init.sh"
 # See https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Linux.html
 
 
-sdk install java 11.0.4-open
+sdk install java 15.0.1.j9-adpt
 sdk install sbt
 
 sbt clean compile test
