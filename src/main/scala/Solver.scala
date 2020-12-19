@@ -17,10 +17,14 @@ object Solver {
 
 
   def start(inputString: String):  Unit={
-    val ListLines = read(inputString)
-    for(i<-ListLines){
-      println(process(i))
+    if (new java.io.File(inputString).isFile){
+      val ListLines = read(inputString)
+      for(i<-ListLines){
+        println(process(i))
+      }
+
     }
+    println(ERROR_PREFIX + "Invalid input string")
   }
 
   def evaluate(hand: List[String]):  (List[Int], List[Int])  = {

@@ -1,5 +1,5 @@
 #!/bin/bash
 ./prepare.sh
-./run.sh < src/test/resources/input.txt > src/test/resources/tmp.txt
-diff src/test/resources/tmp.txt src/test/resources/output.txt
-rm src/test/resources/tmp.txt
+./run.sh < src/test/scala/input.txt > src/test/scala/tmp.txt
+diff src/test/scala/tmp.txt src/test/scala/output.txt
+rm src/test/scala/tmp.txt
