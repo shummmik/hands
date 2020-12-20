@@ -1,3 +1,4 @@
+import java.io._
 import scala.io.Source
 import scala.math.Ordering.Implicits.seqOrdering
 import scala.util.matching.Regex
@@ -17,15 +18,19 @@ object Solver {
 
 
   def start(inputString: String):  Unit={
-    if (new java.io.File(inputString).isFile){
-      val ListLines = read(inputString)
-      for(i<-ListLines){
-        println(process(i))
-      }
 
-    }
-    println(ERROR_PREFIX + "Invalid input string")
+
+      try {
+        val ListLines = read(inputString)
+        for(i<-ListLines){
+          println(process(i))
+      } }catch {
+        case e: FileNotFoundException => println(ERROR_PREFIX +"Couldn't find that file.")
+        case e: IOException => println(ERROR_PREFIX +"Had an IOException trying to read that file")
+        case e: NullPointerException => println(ERROR_PREFIX +"Null input string")
+      }
   }
+
 
   def evaluate(hand: List[String]):  (List[Int], List[Int])  = {
     if (hand.length > 5){
@@ -102,7 +107,6 @@ object Solver {
   }
 
   def process(line: String): String = {
-
     line.toLowerCase.split("\\s+").toList match {
       case "texas-holdem" :: board :: hands   => finish_sort(holdem(board, hands))
       case "omaha-holdem" :: board :: hands   => finish_sort(omaha_holdem(board, hands))
