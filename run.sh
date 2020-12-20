@@ -1,2 +1,2 @@
 #!/bin/bash
-sbt --error 'set showSuccess := false' run
+sbt --error 'set showSuccess := false' ~run
