@@ -45,15 +45,18 @@ object Solver {
 
     //if all the cards are different, then the ranking changes slightly
    if (score.length == 5) {
-     //token of rank straight
-     if (ranks.slice(0,2) == (12,3)) ranks = List(3, 2, 1, 0, -1)
 
-      val straight = ( ranks.head - ranks.last ) == 4
+     var ranks_new = ranks
+     if (ranks.slice(0,2) == List(12,3)) {
+       ranks_new = List(3, 2, 1, 0, -1)
+     }
+
+      val straight = ( ranks_new.head - ranks_new.last ) == 4
      //token of rank flush
       val flush = (for (map <- hand) yield map(1)).distinct.length == 1
 
      Tuple2(if (flush) {if (straight) List(5) else List(3,1,1,2) } else  {if (straight)    List(3,1,1,1) else List(1) },
-       ranks)
+       ranks_new)
    }
    else Tuple2(score, ranks)
   }
