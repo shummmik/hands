@@ -41,17 +41,19 @@ object Solver {
 
     val recounts = (for(map <- hand) yield (RANKS.indexOf(map(0)), hand.mkString.count(_ == map(0)))).toMap.toList
     val counts = for(map <- recounts) yield (map._2, map._1)
-    val (score, ranks) = counts.sorted.reverse.unzip
+    var (score, ranks) = counts.sorted.reverse.unzip
 
     //if all the cards are different, then the ranking changes slightly
    if (score.length == 5) {
      //token of rank straight
-      val straight = (ranks.head - ranks.last ) == 4
+     if (ranks.slice(0,2) == (12,3)) ranks = List(3, 2, 1, 0, -1)
+
+      val straight = ( ranks.head - ranks.last ) == 4
      //token of rank flush
       val flush = (for (map <- hand) yield map(1)).distinct.length == 1
 
      Tuple2(if (flush) {if (straight) List(5) else List(3,1,1,2) } else  {if (straight)    List(3,1,1,1) else List(1) },
-       if (ranks.slice(0,2) == (12,3)) List(3, 2, 1, 0, -1) else ranks)
+       ranks)
    }
    else Tuple2(score, ranks)
   }
